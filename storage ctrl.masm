@@ -1,0 +1,287 @@
+jump 9 greaterThan counter 0
+set ratio 0.95
+op mul ratioRedLine ratio 88
+getlink storage 1
+sensor itemCap storage @itemCapacity
+print "[red]Storage Control\n"
+print "[stat]written 210424\n"
+print "by [royal]Darkanoid"
+printflush message1
+op add counter counter 1
+sensor copper storage @copper
+op div copperrat copper itemCap
+op mul copperDisp copperrat 88
+sensor lead storage @lead
+op div leadrat lead itemCap
+op mul leadDisp leadrat 88
+sensor glass storage @metaglass
+op div glassrat glass itemCap
+op mul glassDisp glassrat 88
+sensor graph storage @graphite
+op div graphrat graph itemCap
+op mul graphDisp graphrat 88
+sensor titan storage @titanium
+op div titanrat titan itemCap
+op mul titanDisp titanrat 88
+sensor thor storage @thorium
+op div thorrat thor itemCap
+op mul thorDisp thorrat 88
+sensor sili storage @silicon
+op div silirat sili itemCap
+op mul siliDisp silirat 88
+sensor plast storage @plastanium
+op div plastrat plast itemCap
+op mul plastDisp plastrat 88
+sensor phase storage @phase-fabric
+op div phaserat phase itemCap
+op mul phaseDisp phaserat 88
+sensor surge storage @surge-alloy
+op div surgerat surge itemCap
+op mul surgeDisp surgerat 88
+sensor pyra storage @pyratite
+op div pyrarat pyra itemCap
+op mul pyraDisp pyrarat 88
+sensor blast storage @blast-compound
+op div blastrat blast itemCap
+op mul blastDisp blastrat 88
+sensor scrap storage @scrap
+op div scraprat scrap itemCap
+op mul scrapDisp scraprat 88
+sensor sandrat storage @sand
+op div sandrat sandrat itemCap
+op mul sandDisp sandrat 88
+sensor sporerat storage @spore-pod
+op div sporerat sporerat itemCap
+op mul sporeDisp sporerat 88
+sensor coalrat storage @coal
+op div coalrat coalrat itemCap
+op mul coalDisp coalrat 88
+draw clear 64 64 64 0 0 0
+draw color 128 128 128 255 0 0
+draw rect 1 88 22 surgeDisp 0 0
+draw image 12 101 @surge-alloy 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 23 88 22 phaseDisp 0 0
+draw image 34 101 @phase-fabric 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 45 88 22 plastDisp 0 0
+draw image 56 101 @plastanium 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 67 88 22 siliDisp 0 0
+draw image 78 101 @silicon 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 89 88 22 graphDisp 0 0
+draw image 100 101 @graphite 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 111 88 22 titanDisp 0 0
+draw image 122 101 @titanium 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 133 88 22 thorDisp 0 0
+draw image 144 101 @thorium 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 155 88 22 blastDisp 0 0
+draw image 166 101 @blast-compound 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 1 0 22 copperDisp 0 0
+draw image 12 12 @copper 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 23 0 22 leadDisp 0 0
+draw image 34 12 @lead 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 45 0 22 glassDisp 0 0
+draw image 56 12 @metaglass 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 67 0 22 coalDisp 0 0
+draw image 78 12 @coal 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 89 0 22 scrapDisp 0 0
+draw image 100 12 @scrap 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 111 0 22 sporeDisp 0 0
+draw image 122 12 @spore-pod 22 0 0
+draw color 192 192 192 255 0 0
+draw rect 133 0 22 pyraDisp 0 0
+draw image 144 12 @pyratite 22 0 0
+draw color 128 128 128 255 0 0
+draw rect 155 0 22 sandDisp 0 0
+draw image 166 12 @sand 22 0 0
+draw color 255 0 0 255 0 0
+draw stroke 2 0 0 0 0 0
+draw line 0 ratioRedLine 176 ratioRedLine * ratio
+op add redLine ratioRedLine 88
+draw line 0 redLine 176 redLine 0 0
+drawflush display1
+op greaterThanEq flow surgerat ratio
+jump 117 notEqual flow false
+op and resflow resflow 65534
+jump 118 always x false
+op or resflow resflow 1
+op greaterThanEq flow phaserat ratio
+jump 122 notEqual flow false
+op and resflow resflow 65533
+jump 123 always x false
+op or resflow resflow 2
+op greaterThanEq flow plastrat ratio
+jump 127 notEqual flow false
+op and resflow resflow 65531
+jump 128 always x false
+op or resflow resflow 4
+op greaterThanEq flow silirat ratio
+jump 132 notEqual flow false
+op and resflow resflow 65527
+jump 133 always x false
+op or resflow resflow 8
+op greaterThanEq flow graphrat ratio
+jump 137 notEqual flow false
+op and resflow resflow 65519
+jump 138 always x false
+op or resflow resflow 16
+op greaterThanEq flow titanrat ratio
+jump 142 notEqual flow false
+op and resflow resflow 65503
+jump 143 always x false
+op or resflow resflow 32
+op greaterThanEq flow thorrat ratio
+jump 147 notEqual flow false
+op and resflow resflow 65471
+jump 148 always x false
+op or resflow resflow 64
+op greaterThanEq flow blastrat ratio
+jump 152 notEqual flow false
+op and resflow resflow 65407
+jump 153 always x false
+op or resflow resflow 128
+op greaterThanEq flow copperrat ratio
+jump 157 notEqual flow false
+op and resflow resflow 65279
+jump 158 always x false
+op or resflow resflow 256
+op greaterThanEq flow leadrat ratio
+jump 162 notEqual flow false
+op and resflow resflow 65023
+jump 163 always x false
+op or resflow resflow 512
+op greaterThanEq flow glassrat ratio
+jump 167 notEqual flow false
+op and resflow resflow 64511
+jump 168 always x false
+op or resflow resflow 1024
+op greaterThanEq flow coalrat ratio
+jump 172 notEqual flow false
+op and resflow resflow 63487
+jump 173 always x false
+op or resflow resflow 2048
+op greaterThanEq flow scraprat ratio
+jump 177 notEqual flow false
+op and resflow resflow 61439
+jump 178 always x false
+op or resflow resflow 4096
+op greaterThanEq flow sporerat ratio
+jump 182 notEqual flow false
+op and resflow resflow 57343
+jump 183 always x false
+op or resflow resflow 8192
+op greaterThanEq flow pyrarat ratio
+jump 187 notEqual flow false
+op and resflow resflow 49151
+jump 188 always x false
+op or resflow resflow 16384
+op greaterThanEq flow sandrat ratio
+jump 192 notEqual flow false
+op and resflow resflow 32767
+jump 193 always x false
+op or resflow resflow 32768
+op shr switch resflow 8
+op sub resflow resflow 32768
+op and flow resflow switch
+op xor flow flow 255
+op and switch switch flow
+op and flow resflow 1
+jump 207 notEqual flow false
+op and flow switch 1
+jump 204 notEqual flow false
+control enabled unloader1 0 0 0 0
+jump 209 always x false
+control configure unloader1 @copper 0 0 0
+control enabled unloader1 1 0 0 0
+jump 209 always x false
+control configure unloader1 @surge-alloy 0 0 0
+control enabled unloader1 1 0 0 0
+op and flow resflow 2
+jump 218 notEqual flow false
+op and flow switch 2
+jump 215 notEqual flow false
+control enabled unloader2 0 0 0 0
+jump 220 always x false
+control configure unloader2 @lead 0 0 0
+control enabled unloader2 1 0 0 0
+jump 220 always x false
+control configure unloader2 @phase-fabric 0 0 0
+control enabled unloader2 1 0 0 0
+op and flow resflow 4
+jump 229 notEqual flow false
+op and flow switch 4
+jump 226 notEqual flow false
+control enabled unloader3 0 0 0 0
+jump 231 always x false
+control configure unloader3 @metaglass 0 0 0
+control enabled unloader3 1 0 0 0
+jump 231 always x false
+control configure unloader3 @plastanium 0 0 0
+control enabled unloader3 1 0 0 0
+op and flow resflow 8
+jump 240 notEqual flow false
+op and flow switch 8
+jump 237 notEqual flow false
+control enabled unloader4 0 0 0 0
+jump 242 always flow true
+control enabled unloader4 1 0 0 0
+control configure unloader4 @coal 0 0 0
+jump 242 always x false
+control enabled unloader4 1 0 0 0
+control configure unloader4 @silicon 0 0 0
+op and flow resflow 16
+jump 251 notEqual flow false
+op and flow switch 16
+jump 248 notEqual flow false
+control enabled unloader5 0 0 0 0
+jump 253 always x false
+control enabled unloader5 1 0 0 0
+control configure unloader5 @scrap 0 0 0
+jump 253 always x false
+control enabled unloader5 1 0 0 0
+control configure unloader5 @graphite 0 0 0
+op and flow resflow 32
+jump 262 notEqual flow false
+op and flow switch 32
+jump 259 notEqual flow false
+control enabled unloader6 0 0 0 0
+jump 264 always x false
+control enabled unloader6 1 0 0 0
+control configure unloader6 @spore-pod 0 0 0
+jump 264 always x false
+control enabled unloader6 1 0 0 0
+control configure unloader6 @titanium 0 0 0
+op and flow resflow 64
+jump 273 notEqual flow false
+op and flow switch 64
+jump 270 notEqual flow false
+control enabled unloader7 0 0 0 0
+jump 275 always x false
+control enabled unloader7 1 0 0 0
+control configure unloader7 @pyratite 0 0 0
+jump 275 always x false
+control enabled unloader7 1 0 0 0
+control configure unloader7 @thorium 0 0 0
+op and flow resflow 128
+jump 284 notEqual flow false
+op and flow switch 128
+jump 281 notEqual flow false
+control enabled unloader8 0 0 0 0
+jump 286 always x false
+control enabled unloader8 1 0 0 0
+control configure unloader8 @sand 0 0 0
+jump 286 always x false
+control enabled unloader8 1 0 0 0
+control configure unloader8 @blast-compound 0 0 0
+end
