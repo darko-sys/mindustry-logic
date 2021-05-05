@@ -257,36 +257,6 @@ control enabled unloader8 1 0 0 0
 control configure unloader8 @blast-compound 0 0 0
 end
 
-Kommentar:
-Das Programm hilft beim Ressourcenmanagement:
-erreicht der Speicherfüllstand einer Ressource 95%,
-wird einer von acht doppelt belegten Entladern 
-aktiviert.
-Es sind zwei Prioriätsstufen einprogrammiert: falls die
-seltenere Ressource noch keinen Höchststand erreicht
-hat, wird ein alternativer Ressourcenfluss für eine
-minderwertige Ressource, die auf Höchststand ist, ausgelöst. 
-Gerechnet wird zunächst Datenwort-weise, schließlich
-wird auf bytes geteilt und mittels Bitmanipulation
-die richtige Einstellung gesetzt. flow ist eine
-Hilfsvariable, wie das tmp-Register in Assembly.
-In resflow stellen die Bits die Entlader dar. Im
-Datenwort sind es 16, in den bytes resflow
-und switch (vormals das upper byte von resflow)
-noch je acht.
-Zuätzlich wird der Ressourcenstand auf einem
-großen Display angezeigt, hier gleicht die Reihenfolge
-dem popup-Fenster, wenn man bspw. einen 
-Entlader anklickt. Ursprünglich hat mir der Monitor
-aus der "Logic-skool" Hilfestellung gegeben, ich habe
-ihn auf alle Rohstoffe und aufs große Display er-
-weitert.
-Wichtig:  storage kann alles sein, woran ein
-Entlader angeschlossen werden kann (Nucleus, 
-Tresor, Bodenfabrik,...).
-Dieses Objekt MUSS der zweite Link sein, der an
-den Prozessor angeschlossen wird!
-
 
 lower nibble, lsl first
 @surge-alloy
