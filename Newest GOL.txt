@@ -1,0 +1,771 @@
+set H 11
+set LH 13
+draw clear 128 128 128 0 0 0
+draw color 25 25 25 255 0 0
+set y 0
+set x 0
+op add y y 1
+op add x x 1
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+op rand create 100 1
+jump 33 greaterThan create 65
+jump 20 equal x 1
+jump 22 equal x 11
+jump 24 equal y 1
+jump 26 equal y 11
+write 0b00000001 bank1 ptr
+jump 27 always
+write 0b11000001 bank1 ptr
+jump 27 always
+write 0b10100001 bank1 ptr
+jump 27 always
+write 0b10010001 bank1 ptr
+jump 27 always
+write 0b10001001 bank1 ptr
+op mul resulty y 16
+op sub resulty resulty 12
+op mul resultx x 16
+op sub resultx resultx 12
+draw rect resultx resulty 8 8 0 0
+jump 46 always
+jump 39 equal x 1
+jump 41 equal x 11
+jump 43 equal y 1
+jump 45 equal y 11
+write false bank1 ptr
+jump 46 always
+write 0b11000000 bank1 ptr
+jump 46 always
+write 0b10100000 bank1 ptr
+jump 46 always
+write 0b10010000 bank1 ptr
+jump 46 always
+write 0b10001000 bank1 ptr
+jump 7 lessThan x H
+jump 5 lessThan y H
+drawflush display1			#wrld created and drawn
+set ptr 2					#fill edges
+set ptr2 0
+op add ptr2 ptr 143
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 1
+jump 50 lessThanEq ptr 12
+set ptr 14
+set ptr2 0
+op add ptr2 ptr 11
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 13
+jump 57 lessThanEq ptr 144
+set ptr 26
+set ptr2 0
+op sub ptr2 ptr 11
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 13
+jump 64 lessThanEq ptr 156
+set ptr 158
+set ptr2 0
+op sub ptr2 ptr 143
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 1
+jump 71 lessThanEq ptr 168
+read tmp bank1 155
+write tmp bank1 1
+read tmp bank1 145
+write tmp bank1 13
+read tmp bank1 25
+write tmp bank1 157
+read tmp bank1 15
+write tmp bank1 169
+set y 0					#evolve all neigh
+set x 0
+op add y y 1
+op add x x 1
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+set cnt 0
+op sub tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 99 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 104 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 12
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 109 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 114 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 14
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 119 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 12
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 124 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 129 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 14
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 134 equal evolve false
+op add cnt cnt 1
+jump 140 equal cnt 3
+jump 137 equal cnt 2
+jump 144 always
+read evolve bank1 ptr
+op and tmp evolve 0b00000001
+jump 145 equal tmp false
+read evolve bank1 ptr
+op and evolve evolve 0b11111011
+op or evolve evolve 0b00000010
+write evolve bank2 ptr
+jump 148 always
+read evolve bank1 ptr
+op and evolve evolve 0b11111001
+write evolve bank2 ptr
+jump 88 lessThan x H
+jump 86 lessThan y H
+jump 218 always					#falscher verweis
+sensor tmp switch1 @enabled
+jump 157 notEqual tmp true
+control enabled switch1 0 0 0 0
+sensor tmp switch2 @enabled
+jump 156 notEqual tmp true
+control enabled switch2 0 0 0 0
+jump -1 always
+end
+jump 149 notEqual checks true
+set i checks
+set checks 0
+set cnt 0
+read ptr bank3 i
+op sub tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 167 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 172 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 12
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 177 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 182 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 14
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 187 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 12
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 192 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 197 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 14
+read evolve bank1 tmp
+op and evolve evolve 0b00000001
+jump 202 equal evolve false
+op add cnt cnt 1
+jump 208 equal cnt 3
+jump 205 equal cnt 2
+jump 213 always
+read evolve bank1 ptr
+op and evolve evolve 0b00000001
+jump 213 equal evolve false
+read evolve bank1 ptr
+op and tmp evolve 0b11111011
+op or tmp 0b00000010 b
+write tmp bank2 ptr
+jump 216 always
+read evolve bank1 ptr
+op and tmp 0b11111001 b
+write tmp bank2 ptr
+op sub i i 1
+jump 160 greaterThanEq i 0
+draw clear 125 125 125 0 0 0
+set y 0
+set x 0
+op add y y 1
+op add x x 1
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+read evolve bank2 ptr
+op and tmp evolve 0b00000011
+jump 238 equal tmp 0
+jump 241 equal tmp 3
+jump 244 equal tmp 2
+op and evolve evolve 0b11111100
+op or evolve evolve 0b00000100
+write evolve bank1 ptr
+write ptr bank3 checks
+op add checks checks 1
+jump 255 always
+op and evolve evolve 0b11111000
+write evolve bank1 ptr
+jump 255 always
+op and evolve evolve 0b11111011
+write evolve bank1 ptr
+jump 255 always
+op or evolve evolve 0b00000101
+write evolve bank1 ptr
+write ptr bank3 checks
+op add checks checks 1
+op mul resulty y 16
+op sub resulty resulty 12
+op mul resultx x 16
+op sub resultx resultx 12
+draw rect resultx resulty 8 8 0 0
+jump 222 lessThan x H
+jump 220 lessThan y H
+drawflush display1
+jump 258 notEqual checks false
+jump 157 always
+set i checks
+read ptr bank3 i
+read evolve bank1 ptr
+op and tmp evolve 0b10000000
+jump 270 equal tmp false
+op and tmp evolve 0b01000000
+jump 319 notEqual tmp false
+op and tmp evolve 0b00100000
+jump 376 notEqual tmp false
+op and tmp evolve 0b00010000
+jump 433 equal tmp false
+jump 489 equal tmp false
+op sub tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 279 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 288 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 12
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 297 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 306 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 14
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 315 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 12
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 324 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 333 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 14
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub i i 1
+jump 259 greaterThanEq i 0
+jump 691 always i 0
+op add tmp ptr 10
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 353 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 362 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 3
+jump 364 greaterThan tmp 13
+set tmp 155
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 373 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 13
+jump 376 greaterThan tmp 13
+noop
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 384 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 14
+jump 387 greaterThan tmp 13
+set tmp 146
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 395 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 23
+jump 398 lessThan tmp 145
+set tmp 25
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 406 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 13
+jump 409 lessThan tmp 145
+set tmp 15
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 417 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 14
+jump 420 lessThan tmp 145
+set tmp 16
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 428 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub i i 1
+jump 259 greaterThanEq i 0
+jump 691 always i 0
+op sub tmp ptr 1
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 440 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 10
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 449 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 23
+jump 452 greaterThan tmp 13
+set tmp 145
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 460 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 13
+jump 463 greaterThan tmp 13
+set tmp 155
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 471 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 14
+jump 474 greaterThan tmp 13
+set tmp 154
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 482 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 12
+jump 485 lessThan tmp 155
+set tmp 24
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 493 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 13
+jump 496 lessThan tmp 155
+set tmp 25
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 504 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 14
+jump 507 lessThan tmp 155
+set tmp 15
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 515 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub i i 1
+jump 259 greaterThanEq i 0
+jump 691 always i 0
+op sub tmp ptr 1
+jump 521 greaterThan tmp 14
+set tmp 25
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 529 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 1
+jump 532 lessThanEq tmp 26
+set tmp 15
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 540 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 129
+jump 543 greaterThan tmp 144
+set tmp 155
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 551 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 130
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 560 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 131
+jump 563 lessThan tmp 156
+set tmp 145
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 571 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 12
+jump 574 greaterThan tmp 27
+set tmp 38
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 582 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 591 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 14
+jump 594 lessThan tmp 39
+set tmp 28
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 602 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub i i 1
+jump 259 greaterThanEq i 0
+jump 691 always i 0
+op sub tmp ptr 1
+jump 608 greaterThan tmp 144
+set tmp 155
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 616 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op add tmp ptr 1
+jump 519 lessThan tmp 156
+set tmp 145
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 627 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 12
+jump 630 notEqual tmp 143
+set tmp 132
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 638 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 13
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 647 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 14
+jump 650 notEqual tmp 131
+set tmp 142
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 658 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 131
+jump 661 notEqual tmp 14
+set tmp 25
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 669 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 130
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 678 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub tmp ptr 129
+jump 681 notEqual tmp 26
+set tmp 15
+read evolve bank1 tmp
+op and evolve evolve 0b00000100
+jump 689 notEqual evolve false
+op add checks checks 1
+write tmp bank3 checks
+read evolve bank1 tmp
+op or evolve 0b00000100 b
+write evolve bank1 tmp
+op sub i i 1
+jump 259 greaterThanEq i 0
+set ptr 2
+set ptr2 0
+op add ptr2 ptr 143
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 1
+jump 692 lessThanEq ptr 12
+set ptr 14
+set ptr2 0
+op add ptr2 ptr 11
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 13
+jump 699 lessThanEq ptr 144
+set ptr 26
+set ptr2 0
+op sub ptr2 ptr 11
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 13
+jump 706 lessThanEq ptr 156
+set ptr 158
+set ptr2 0
+op sub ptr2 ptr 143
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 1
+jump 713 lessThanEq ptr 168
+read tmp bank1 155
+write tmp bank1 1
+read tmp bank1 145
+write tmp bank1 13
+read tmp bank1 25
+write tmp bank1 157
+read tmp bank1 15
+write tmp bank1 169
+jump 256 always
+set x 0
+write false bank1 x
+write false bank2 x
+op add x x 1
+jump 729 lessThanEq x 169
+set x 5
+set y 5
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 6
+set y 5
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 7
+set y 5
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 7
+set y 6
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 5
+set y 7
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+jump 256 always
