@@ -1,0 +1,192 @@
+set H 11					#create world and draw original generation
+set LH 13
+draw clear 128 128 128 0 0 0
+draw color 25 25 25 255 0 0
+set y 0
+set x 0
+op add y y 1
+op add x x 1
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+op rand create 100 1
+jump 21 greaterThan create 65
+write true bank1 ptr
+op mul resulty y 16
+op sub resulty resulty 12
+op mul resultx x 16
+op sub resultx resultx 12
+draw rect resultx resulty 8 8 0 0
+jump 22 always x false
+write false bank1 ptr
+jump 7 lessThan x H
+jump 5 lessThan y H
+drawflush display1				#init finished: random world created and drawn
+sensor tmp switch1 @enabled		#loop for changes while switch1 off
+jump 33 notEqual tmp true
+control enabled switch1 0 0 0 0
+sensor tmp switch2 @enabled		#shift-key for switch1
+jump 32 notEqual tmp true			
+control enabled switch2 0 0 0 0
+jump 141 always					#jump to preset section
+end								#Reset
+set ptr 2						#Ränder füllen
+set ptr2 0
+op add ptr2 ptr 143
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 1
+jump 34 lessThanEq ptr 12
+set ptr 14
+set ptr2 0
+op add ptr2 ptr 11
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 13
+jump 41 lessThanEq ptr 144
+set ptr 26
+set ptr2 0
+op sub ptr2 ptr 11
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 13
+jump 48 lessThanEq ptr 156
+set ptr 158
+set ptr2 0
+op sub ptr2 ptr 143
+read tmp bank1 ptr2
+write tmp bank1 ptr
+op add ptr ptr 1
+jump 55 lessThanEq ptr 168
+read tmp bank1 155
+write tmp bank1 1
+read tmp bank1 145
+write tmp bank1 13
+read tmp bank1 25
+write tmp bank1 157
+read tmp bank1 15
+write tmp bank1 169				#Ränder gefüllt
+set y 0							#evolve - cnt neighbors
+set x 0
+op add y y 1
+op add x x 1
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+set cnt 0
+op sub tmp ptr 1
+read evolve bank1 tmp
+jump 82 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 1
+read evolve bank1 tmp
+jump 86 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 12
+read evolve bank1 tmp
+jump 90 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 13
+read evolve bank1 tmp
+jump 94 equal evolve false
+op add cnt cnt 1
+op sub tmp ptr 14
+read evolve bank1 tmp
+jump 98 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 12
+read evolve bank1 tmp
+jump 102 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 13
+read evolve bank1 tmp
+jump 106 equal evolve false
+op add cnt cnt 1
+op add tmp ptr 14
+read evolve bank1 tmp
+jump 110 equal evolve false
+op add cnt cnt 1
+jump 115 equal cnt 3
+jump 113 equal cnt 2
+jump 117 always x false
+read evolve bank1 ptr
+jump 117 equal evolve false
+write true bank2 ptr
+jump 118 always x false
+write false bank2 ptr
+jump 72 lessThan x H
+jump 70 lessThan y H					#neigh counted
+draw clear 125 125 125 0 0 0		#evolve - copy and draw function
+set y 0
+set x 0
+op add y y 1
+op add x x 1
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+read evolve bank2 ptr
+write evolve bank1 ptr
+jump 137 equal evolve false
+op mul resulty y 16
+op sub resulty resulty 12
+op mul resultx x 16
+op sub resultx resultx 12
+draw rect resultx resulty 8 8 0 0
+jump 124 lessThan x H
+jump 122 lessThan y H
+drawflush display1
+jump 25 always x false					#jump to while-loop
+set x 0								#beginning of preset section
+write false bank1 x
+write false bank2 x
+op add x x 1
+jump 142 lessThanEq x 169
+set x 5
+set y 5
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 6
+set y 5
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 7
+set y 5
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 7
+set y 6
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+set x 5
+set y 7
+op sub ptr y 1
+op mul ptr ptr LH
+op add ptr ptr 14
+op add ptr ptr x
+write true bank1 ptr
+jump 25 always x false				#jump to while-loop
+
+#ver 1.2
+
+
+MIGOL is an adaption of Conways Game of Life for Mindustry.
+I invested much of my free time for about the last two weeks, primarily because of my limited programming skills, not because the task was very complicated. It was very interesting to adapt to the limitations of Mindustry logic compared to higher languages, but even to assembly! Not having arrays or .db instructions really messed with my head...
+The GOL world is 11x11 cells and wraps around. There are two switches connected, the first restarts the game with a randomly generated world (with a probability of 65% for each cell to live), the second is like shift-key for the first. If you set switch2, then switch1 in this order, the game starts with a preset, which you can alter easily at the end of the code.
+There are several improvements I would like to see in action, one or two important improvements and then a lot of ideas concerning convenience and cosmetics. Here are some desiderata:
+- reduce the time it takes for each generation: the game is very slow because the evolve function checks EVERY cell every generation, then the drawing function does the same. As the GOL world tends to die out, already after a few generations most parts of the world are eather dead or reached a stable state. It would save many operations if we only checked the cells which have undergone changes and their neighbours. If we kept a list of the changes in any generation - I imagine some kind of stack with the pointers to the cells that change, combined with an algorithm that evolves this cell and its neighbors.
+- 
